@@ -15,13 +15,13 @@ sudo chmod +x /usr/local/bin/sl{,a}
 Then run `tracker-preferences` to configure which directories you want to index. Finally run `tracker-control -s` to initialize the indexing process. It may take a while before this finishes.
 
 ### Usage
-# Step 1
+##### Step 1
 `sl some arguments` will use tracker-search to look for files that match "some arguments". This will search inside all user-specified directories (see `tracker-preferences`). It will then output a list of paths that matched the pattern.
 
-# Step 2
+##### Step 2
 You can pipe the results to `grep` or another program to further refine your results.
 
-# Step 3
+##### Step 3
 Finally, when you're happy with the result, you can pipe it to `sla` (which stands for superlocate-accept) to create the symlinks. The basenames of those files or directories are used as the names. To avoid confusion, two ls commands are run automatically. The first one shows what links to what, one result per line (ls -l). The other one is a concise output that sorts the files and directories by order of last modification date.
 
 ### Examples
