@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Have for loops count only newline characters as delimiters, and not spaces.
+IFS=$'\n'
+
+# Take input from stdin
+pathsvar=$(cat)
+
+# Take a list of paths from stdin, and create a symlink to each of those inodes.
+# Array time!
+count1=-1
+for i in $pathsvar
+do
+ 	count1=$(echo "$count1"+1 | bc) # We need to use bc for the calculation, because bash doesn't seem to understand negative numbers.
+	filepath=("${filepath[@]}" "$(echo "$i")") # Append current line as new field in array.
+done
+
+# Now we have one array that contains all the paths. We will parallel this with an array that contains all the basenames. We need the basenames to name the symlinks.
+
+# We're going to use a counter to separate the arrays. There will be $filepath0, $filepath1, $filepath2, and so on, for each path.
+# We'll make the counter variable initially -1 in bash. It will increment with each loop, so it will effectively start at 0.
+count2=-1
+
+ for i in ${filepath[@]}
+ do
+ 	count2=$(echo "$count2"+1 | bc) # We need to use bc for the calculation, because bash doesn't seem to understand negative numbers.
+ 	basename[$count2]="$(basename "${filepath[$count2]}")"
+ 
+ 	# Check for duplicates. We're going to use the array $checkedbasenames to store all the basenames that have been iterated over. If the current basename exists in this array, remove ambiguity and then make the symlink. Otherwise, add this basename to the array and create the symlink normally.
+  	if [[ "${checkedbasenames[*]}" == *"${basename[$count2]} "* ]] || [[ "${checkedbasenames[*]}" == *" ${basename[$count2]}" ]] ; then # As you can see, this is a very simple implementation that works with space as a separator. This will create a bug if spaces are contained in the basename AND there's a duplicate (for example: two of the search results are named "some file"). Spaces in filenames aren't that common in UNIX and I think this is a pretty rare bug, so I will disregard it for now.
+		# echo DUPLICATE # for debugging purposes
+  		ln -sT "${filepath[$count2]}" "${basename[$count2]}$count2" # Very simple fix: I'm reusing the $count2 counter to remove ambiguity. This will seem pretty random to the end user, but they can always rename the symlink.
+  	else
+		# echo UNIQUE # for debugging purposes.
+  	 	checkedbasenames=( "${checkedbasenames[@]}" "${basename[$count2]}" ) # Okay, not a duplicate. Add this basename to the array.
+  	 	ln -sT "${filepath[$count2]}" "${basename[$count2]}" # Same as above, except that there's no ambiguity to remove.
+  	fi
+
+ done
+
+
+# Output the files again, this time showing what links to what
+ ls -l --color=auto
+ echo -e "\n" # Separate the commands with a blank line
+
+# Output it once more, but this time in a more compact way, and sorted when they were created. This lets the user access their most recent files more easily.
+ ls -Ltr --color=auto
+
