@@ -15,16 +15,17 @@ sudo chmod +x /usr/local/bin/sl{,a}
 Then run `tracker-preferences` to configure which directories you want to index. Finally run `tracker-control -s` to initialize the indexing process. It may take a while before this finishes.
 
 ### Usage
-##### Step 1
+###### Step 1
 `sl some arguments` will use tracker-search to look for files that match "some arguments". This will search inside all user-specified directories (see `tracker-preferences`). It will then output a list of paths that matched the pattern.
 
-##### Step 2
+###### Step 2
 Optionally, you can pipe the results to `grep` or another program to further refine your results.
 
-##### Step 3
+###### Step 3
 Finally, when you're happy with the result, you can pipe it to `sla` (which stands for superlocate-accept) to create the symlinks. The basenames of those files or directories are used as the names. To avoid confusion, two ls commands are run automatically. The first one shows what links to what, one result per line (ls -l). The other one is a concise output that sorts the files and directories by order of last modification date.
 
 ### Examples
+###### Example 1
 ```
  % sl psychic wars
 /home/user/Music/Blue Öyster Cult/1981 - Fire Of Unknown Origin/03. Veteran Of Psychic Wars.flac
@@ -48,6 +49,7 @@ This probably doesn't look very readable to you, but keep in mind that the real 
 
 Now that the symlinks are created, I can just run `mplayer 03.\ Veteran\ Of\ Psychic\ Wars.flac` to play the song I wanted to hear.
 
+###### Example 2
 But all the same, there were some 500 results and I only needed one out of them. I don't want to symlink to all those results, but only to the Blue Oyster Cult song. No problem: before accepting the results, I filter by "Cult".
 
 ```
@@ -63,6 +65,16 @@ lrwxrwxrwx 1 user users 160 Apr  3 22:07 03. Veteran Of Psychic Wars.flac -> /ho
 
 03. Veteran Of Psychic Wars.flac
 ```
+
+###### Example 3
+Let's say you want to link to `/home/user/music/beethoven/`, but there's also a thousand files with "Beethoven" in the name. All options are passed to tracker-search, so it's possible to only show directories.
+
+```
+% sl -s beethoven
+/home/user/music/beethoven/
+```
+
+For more details, see `info tracker-search`.
 
 ### FAQ
 Q: Why the heck would I want to clutter my working directory with all those files?!
