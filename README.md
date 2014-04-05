@@ -67,14 +67,14 @@ lrwxrwxrwx 1 user users 160 Apr  3 22:07 03. Veteran Of Psychic Wars.flac -> /ho
 ```
 
 ###### Example 3
-Let's say you want to link to `/home/user/music/beethoven/`, but there's also a thousand files with "Beethoven" in the name. All options are passed to tracker-search, so it's possible to only show directories.
+Let's say you want to link to `/home/user/music/beethoven/`, but there's also a thousand files with "Beethoven" in the name. All options are passed to tracker-search, so it's possible to only show directories. (For more details, see `info tracker-search`.)
 
 ```
 % sl -s beethoven
 /home/user/music/beethoven/
 ```
 
-For more details, see `info tracker-search`.
+Now, after accepting the results, I can do `cd beethoven`. 
 
 ### FAQ
 Q: Why the heck would I want to clutter my working directory with all those files?!
