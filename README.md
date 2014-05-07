@@ -33,7 +33,7 @@ Finally, when you're happy with the result, you can pipe it to `sla` (which stan
 /home/user/books/[Plato]_The_Republic_(Webster's_Thesaurus_Edition)(Bookos.org).pdf
 ```
 
-The Blue Oyster Cult song is what we were looking for. Tarot has covered that song, so that appears as well, and it looks like both the words "psychic" and "wars" appear inside Plato's republic. Since these are just three files, this does not create clutter and we can accept the results.
+The Blue Öyster Cult song is what we were looking for. Tarot has covered that song, so that appears as well, and it looks like both the words "psychic" and "wars" appear inside Plato's republic. Since these are just three files, this does not create clutter and we can accept the results.
 
 ```
  % sl psychic wars | sla
@@ -50,7 +50,7 @@ This probably doesn't look very readable to you, but keep in mind that the real 
 Now that the symlinks are created, I can just run `mplayer 03.\ Veteran\ Of\ Psychic\ Wars.flac` to play the song I wanted to hear.
 
 ###### Example 2
-But all the same, there were some 500 results and I only needed one out of them. I don't want to symlink to all those results, but only to the Blue Oyster Cult song. No problem: before accepting the results, I filter by "Cult".
+But all the same, there were some 500 results and I only needed one out of them. I don't want to symlink to all those results, but only to the Blue Öyster Cult song. No problem: before accepting the results, I filter by "Cult".
 
 ```
  % sl psychic wars
