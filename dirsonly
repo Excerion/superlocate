@@ -1,0 +1,6 @@
+#!/bin/bash
+currentinput=$(cat)
+for i in $currentinput
+do
+	[[ -d $i ]] && echo "$i"
+done
